@@ -1,7 +1,11 @@
-package model;
+package com.dk.model;
+
+import com.dk.helpers.UserRoleOptions;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class User {
@@ -15,11 +19,11 @@ public class User {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private String role;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
+    private UserRoleOptions role;
+    @CreationTimestamp
+    private LocalDateTime createdOn;
+    @UpdateTimestamp
+    private LocalDateTime updatedOn;
 
     public Long getId() {
         return id;
@@ -69,28 +73,20 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRoleOptions getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRoleOptions role) {
         this.role = role;
     }
 
-    public Date getCreatedOn() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getUpdatedOn() {
+    public LocalDateTime getUpdatedOn() {
         return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
 }

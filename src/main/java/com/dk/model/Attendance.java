@@ -1,18 +1,19 @@
-package model;
+package com.dk.model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Mark {
+public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long studentId;
-    private Long subjectId;
-    private Long teacherId;
-    private Integer score;
+    private Long userId;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date arrivalTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date departureTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     @Temporal(TemporalType.TIMESTAMP)
@@ -26,36 +27,28 @@ public class Mark {
         this.id = id;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public Date getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Date getDepartureTime() {
+        return departureTime;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
     }
 
     public Date getCreatedOn() {

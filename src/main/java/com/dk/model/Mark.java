@@ -1,19 +1,18 @@
-package model;
+package com.dk.model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Attendance {
+public class Mark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long userId;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrivalTime;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureTime;
+    private Long studentId;
+    private Long subjectId;
+    private Long teacherId;
+    private Integer score;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,28 +26,36 @@ public class Attendance {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
-    public Date getArrivalTime() {
-        return arrivalTime;
+    public Long getSubjectId() {
+        return subjectId;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
     }
 
-    public Date getDepartureTime() {
-        return departureTime;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Date getCreatedOn() {

@@ -1,43 +1,43 @@
-package model;
+package com.dk.model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Report {
+public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private Long studentId;
-    private String scores;
+    private Integer id;
+    private String name;
+    private String description;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public String getName() {
+        return name;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getScores() {
-        return scores;
+    public String getDescription() {
+        return description;
     }
 
-    public void setScores(String scores) {
-        this.scores = scores;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreatedOn() {
