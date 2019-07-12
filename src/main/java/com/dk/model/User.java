@@ -1,92 +1,77 @@
 package com.dk.model;
 
 import com.dk.helpers.UserRoleOptions;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String tel;
-    private String email;
-    private String password;
+    private @Getter @Setter Long id;
+    private @Getter @Setter String firstName;
+    private @Getter @Setter String lastName;
+    private @Getter @Setter String tel;
+    private @Getter @Setter String email;
+    private @Setter String username;
+    private @Setter String password;
     @Enumerated(EnumType.STRING)
-    private UserRoleOptions role;
+    private @Getter @Setter UserRoleOptions role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private @Getter List<String> systemRole = new ArrayList<>();
     @CreationTimestamp
-    private LocalDateTime createdOn;
+    private @Getter LocalDateTime createdOn;
     @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private @Getter LocalDateTime updatedOn;
 
-    public Long getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.systemRole.stream().map(SimpleGrantedAuthority::new).collect(toList());
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return this.username;
     }
 
-    public UserRoleOptions getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setRole(UserRoleOptions role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public LocalDateTime getCreatedOn() {
-        return this.createdOn;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public LocalDateTime getUpdatedOn() {
-        return this.updatedOn;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-
 }
