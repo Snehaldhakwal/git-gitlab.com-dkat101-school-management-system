@@ -1,10 +1,11 @@
 package com.dk.controller;
 
 import com.dk.model.User;
+import com.dk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import com.dk.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -14,6 +15,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @GetMapping
     public @ResponseBody Iterable<User> findAll() {
@@ -45,7 +49,7 @@ public class UserController {
                 user.setLastName(newUser.getLastName());
                 user.setTel(newUser.getTel());
                 user.setEmail(newUser.getEmail());
-                user.setPassword(newUser.getPassword());
+                user.setPassword(bcryptEncoder.encode(newUser.getPassword()));
                 user.setRole(newUser.getRole());
 
                 return userRepository.save(user);
