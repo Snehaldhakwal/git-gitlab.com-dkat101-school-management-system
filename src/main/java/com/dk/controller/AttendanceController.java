@@ -47,9 +47,8 @@ public class AttendanceController {
                 return attendanceRepository.save(attendance);
             })
             .orElseGet(() -> {
-                //newAttendance.setId(id);
 
-                return attendanceRepository.save(newAttendance);
+                return null;
             });
     }
 

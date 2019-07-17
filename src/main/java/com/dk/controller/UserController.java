@@ -56,7 +56,8 @@ public class UserController {
             })
             .orElseGet(() -> {
 
-                return userRepository.save(newUser);
+                //return userRepository.save(newUser);
+                return null;
             });
     }
 
