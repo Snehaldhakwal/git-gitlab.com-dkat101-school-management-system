@@ -1,4 +1,4 @@
-package com.dk.helpers;
+package com.dk.helper;
 
 public enum UserRoleOptions {
 

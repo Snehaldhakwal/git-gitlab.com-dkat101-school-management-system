@@ -1,6 +1,6 @@
 package com.dk.model;
 
-import com.dk.helpers.UserRoleOptions;
+import com.dk.helper.UserRoleOptions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

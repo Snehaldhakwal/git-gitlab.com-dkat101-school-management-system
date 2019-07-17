@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 <modelVersion>4.0.0</modelVersion>
 
-<groupId>edu.dk.schoolmanagementsystem</groupId>
+<groupId>com.dk.schoolmanagementsystem</groupId>
 <artifactId>SchoolManagementSystem</artifactId>
 <version>0.0.1</version>
 
@@ -79,7 +79,44 @@
         <artifactId>spring-boot-configuration-processor</artifactId>
         <optional>true</optional>
     </dependency>
+
+    <!-- swagger springfox documentation generator -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+
+    <!-- swagger springfox documentation ui -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+
+    <!-- swagger springfox data rest -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-data-rest</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+
+    <!-- swagger springfox validate input values for java beans. Support for JSR-303 -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-bean-validators</artifactId>
+        <version>2.9.2</version>
+    </dependency>
 </dependencies>
+
+<repositories>
+    <!-- swagger springfox documentation -->
+    <repository>
+        <id>jcenter-snapshots</id>
+        <name>jcenter</name>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
 
 <properties>
     <java.version>1.8</java.version>
