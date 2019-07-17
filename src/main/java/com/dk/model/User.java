@@ -15,7 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private @Getter @Setter Long id;
+    private @Getter Long id;
     private @Getter @Setter String firstName;
     private @Getter @Setter String lastName;
     private @Getter @Setter String tel;

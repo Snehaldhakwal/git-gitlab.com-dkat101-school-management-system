@@ -55,7 +55,6 @@ public class UserController {
                 return userRepository.save(user);
             })
             .orElseGet(() -> {
-                newUser.setId(id);
 
                 return userRepository.save(newUser);
             });
