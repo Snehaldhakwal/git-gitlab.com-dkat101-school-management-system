@@ -8,6 +8,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -28,6 +29,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.dk.controller"))
                 .paths(PathSelectors.any())
                 .build()
+                .securitySchemes(newArrayList(apiKey()))
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(500)
@@ -42,5 +44,9 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo("My REST API", "Some custom description of API.", "API TOS", "Terms of service", new Contact("John Doe", "www.example.com", "myeaddress@company.com"), "License of API", "API license URL", Collections.emptyList());
         return apiInfo;
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("access_token", "access_token", "header");
     }
 }
