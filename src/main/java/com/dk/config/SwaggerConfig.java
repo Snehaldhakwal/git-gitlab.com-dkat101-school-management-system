@@ -14,6 +14,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -29,7 +30,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.dk.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .securitySchemes(newArrayList(apiKey()))
+                .securitySchemes(Arrays.asList(apiKey()))
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(500)
@@ -42,11 +43,18 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("My REST API", "Some custom description of API.", "API TOS", "Terms of service", new Contact("John Doe", "www.example.com", "myeaddress@company.com"), "License of API", "API license URL", Collections.emptyList());
+        ApiInfo apiInfo = new ApiInfo(
+                "School Management System API",
+                "This API carries out the main operations in a school.",
+                "API v1",
+                "Terms of service",
+                new Contact("Derrick Katungi", "-", "dkatungi@gmail.com"),
+                "License of API",
+                "API license URL", Collections.emptyList());
         return apiInfo;
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("access_token", "access_token", "header");
+        return new ApiKey("apiKey", "Authorization", "header");
     }
 }

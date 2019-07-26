@@ -4,6 +4,7 @@ import com.dk.model.Subject;
 import com.dk.repository.SubjectRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,21 @@ public class SubjectController {
     private SubjectRepository subjectRepository;
 
     @GetMapping
-    @ApiOperation(value = "View a list of available subjects", response = Subject.class)
+    @ApiOperation(
+            value = "View a list of available subjects",
+            response = Subject.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Iterable<Subject> findAll() {
         return subjectRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    @ApiOperation(value = "View a single record of available subjects", response = Subject.class)
+    @ApiOperation(
+            value = "View a single record of available subjects",
+            response = Subject.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Subject findById(@PathVariable Integer id) {
         Optional<Subject> subject = this.subjectRepository.findById(id);
         if (subject.isPresent()) {
@@ -37,14 +46,22 @@ public class SubjectController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a single record of subject", response = Subject.class)
+    @ApiOperation(
+            value = "Create a single record of subject",
+            response = Subject.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public Subject create(@RequestBody Subject resource) {
         return subjectRepository.save(resource);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Update a single record of available subjects", response = Subject.class)
+    @ApiOperation(
+            value = "Update a single record of available subjects",
+            response = Subject.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Subject update(@PathVariable("id") Integer id, @RequestBody Subject newSubject) {
         return subjectRepository.findById(id)
             .map(subject -> {
@@ -61,7 +78,10 @@ public class SubjectController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete a single record of available subjects")
+    @ApiOperation(
+            value = "Delete a single record of available subjects",
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public void delete(@PathVariable("id") Integer id) {
         subjectRepository.deleteById(id);
     }

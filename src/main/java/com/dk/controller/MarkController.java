@@ -4,6 +4,7 @@ import com.dk.model.Mark;
 import com.dk.repository.MarkRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,21 @@ public class MarkController {
     private MarkRepository markRepository;
 
     @GetMapping
-    @ApiOperation(value = "View a list of available marks", response = Mark.class)
+    @ApiOperation(
+            value = "View a list of available marks",
+            response = Mark.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Iterable<Mark> findAll() {
         return markRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    @ApiOperation(value = "View a single record of available marks", response = Mark.class)
+    @ApiOperation(
+            value = "View a single record of available marks",
+            response = Mark.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Mark findById(@PathVariable Long id) {
         Optional<Mark> mark = this.markRepository.findById(id);
         if (mark.isPresent()) {
@@ -37,14 +46,22 @@ public class MarkController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a single record of marks", response = Mark.class)
+    @ApiOperation(
+            value = "Create a single record of marks",
+            response = Mark.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public Mark create(@RequestBody Mark resource) {
         return markRepository.save(resource);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Update a single record of available marks", response = Mark.class)
+    @ApiOperation(
+            value = "Update a single record of available marks",
+            response = Mark.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Mark update(@PathVariable("id") Long id, @RequestBody Mark newMark) {
         return markRepository.findById(id)
             .map(mark -> {
@@ -63,7 +80,10 @@ public class MarkController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete a single record of available marks")
+    @ApiOperation(
+            value = "Delete a single record of available marks",
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public void delete(@PathVariable("id") Long id) {
         markRepository.deleteById(id);
     }

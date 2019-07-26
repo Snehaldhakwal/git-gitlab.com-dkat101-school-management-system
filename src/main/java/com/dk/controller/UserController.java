@@ -4,6 +4,7 @@ import com.dk.model.User;
 import com.dk.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,13 +24,21 @@ public class UserController {
     private PasswordEncoder bcryptEncoder;
 
     @GetMapping
-    @ApiOperation(value = "View a list of available users", response = User.class)
+    @ApiOperation(
+            value = "View a list of available users",
+            response = User.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    @ApiOperation(value = "View a single record of available users", response = User.class)
+    @ApiOperation(
+            value = "View a single record of available users",
+            response = User.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody User findById(@PathVariable Long id) {
         Optional<User> user = this.userRepository.findById(id);
         if (user.isPresent()) {
@@ -41,14 +50,22 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a single record of users", response = User.class)
+    @ApiOperation(
+            value = "Create a single record of users",
+            response = User.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public User create(@RequestBody User resource) {
         return userRepository.save(resource);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Update a single record of available users", response = User.class)
+    @ApiOperation(
+            value = "Update a single record of available users",
+            response = User.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public @ResponseBody User update(@PathVariable("id") Long id, @RequestBody User newUser) {
         return userRepository.findById(id)
             .map(user -> {
@@ -70,7 +87,10 @@ public class UserController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete a single record of available users")
+    @ApiOperation(
+            value = "Delete a single record of available users",
+            authorizations = { @Authorization(value="apiKey") }
+    )
     public void delete(@PathVariable("id") Long id) {
         userRepository.deleteById(id);
     }
